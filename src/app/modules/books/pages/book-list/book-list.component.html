@@ -1,0 +1,25 @@
+<h3>Books list</h3>
+@if(message){
+  <div
+    class="alert "
+    [class.alert-danger]="level==='error'"
+    [class.alert-success]="level==='success'"
+    role="alert"
+  >
+    <p>{{message}}</p>
+  </div>
+}
+<hr>
+<div class="d-flex justify-content-start gap-2 flex-wrap">
+   @for (book of bookResponse.content; track book.id) {
+    <app-book-card [book]="book" (borrow)="borrowBook($event)"></app-book-card>
+   }
+</div>
+
+<app-pagination
+  [page]="page"
+  [size]="size"
+  [pages]="pages"
+  [feedbacks]="bookResponse"
+  (allFeedback)="findAllBooks()"
+></app-pagination>
